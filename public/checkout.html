@@ -1,0 +1,176 @@
+
+
+<div class="container" ng-controller="checkoutController" ng-init="init()">
+
+    
+    <div id="errorDiv" class="alert alert-warning fade in">
+                    <a href="" class="close" data-dismiss="alert">×</a>
+                    <strong ng-bind="result"></strong>{{status}}  
+                </div>
+
+<div class="panel panel-warning" id="products_info">
+    <div class="panel-heading">
+            <h3 align="center">Your Order Details</h3>
+        </div>
+<div class="panel-body" >
+  
+ <table class="table table-hover">
+        <thead>
+        <tr>
+        
+            <td>Product Name</td>               
+            <td>Quantity</td>
+            <td>Price</td>
+            
+        </tr>
+        </thead>
+        <tbody >
+            <tr ng-repeat="prod in cartProducts">
+                
+                <td>{{prod.name}}</td>
+                <td>{{prod.count}}</td>
+                <td>{{prod.price*prod.count}}</td>
+            </tr>
+            
+            <tr align=right><td><h3>Total Price :{{totalprice}}</h3></td></tr>
+        </tbody>
+    </table> 
+
+ </div> 
+    </div>
+
+<div class="container" id="place_orderbtn"><button align="center" class="btn btn-danger" href="" ng-click="orderConfirm()">Place Order</button>
+</div>
+
+
+
+
+
+<div class="panel panel-info" id="order_info">
+<div class="panel-heading">
+ <h4 class="panel-title">Your order has been placed successfully!
+    </h4>
+    </div>
+    <div class="panel-body" >
+        <table >
+            
+<tr><td><b>Transaction ID:</b></td><td>#{{Txid}}</td></tr>
+<tr><td><b>To Address:</b></td></tr>
+<tr><td>{{toAddr}}</td></tr>
+                
+</table>
+     </div>
+<div class="container"><button align="center" class="btn btn-danger" href="" ng-click="continueShop()">continue Shopping</button></div>
+
+
+    </div>
+
+<div class="container" id="checkOut">
+        <div class="panel-group" id="accordion">
+           
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div data-toggle="collapse" data-parent="#accordion" href="#collapse1">If Already Registered? Login Here</div>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    
+                <div class="panel panel-body" >
+              <center>          
+            <form id="loginform" class="form-horizontal" role="form">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" ng-model="userMail" placeholder="username or email" required>                                        
+                </div>            
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="password" ng-model="userPassword" required>
+                </div>   
+                <div class="form-group">
+
+                    <div class="col-sm-12 controls">
+                        <a id="btn-login" href="" class="btn btn-success" ng-click="loginCheckout()">Login</a>
+                    </div>
+                </div>
+                <p>{{msg}}</p>
+                </form>   
+                  </center>
+                </div>
+                </div>
+            
+            </div>
+   
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div data-toggle="collapse" data-parent="#accordion" href="#collapse2">Guest User</div>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <center>
+                    
+                         <div id="form" align=center>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" pattern="[a-zA-Z]{3,15}" ng-model="guestName" placeholder="Enter your Name" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email Id</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"  ng-model="guestMail" placeholder="Enter your Email id" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-sm-2 control-label">Address</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control"  ng-model="guestAddress"  placeholder="Enter your Address" required/>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">Phone No</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                    <input  class="form-control" type="number" pattern="^[0-9]{10}$" ng-model="guestPhone"  placeholder="Enter your Phone number" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                        <button class="btn btn-danger" ng-click="orderConfirm()"> Place Order</button> 
+                            </div>
+                        
+                             </form>
+                        </div>
+                   <!-- <div class="panel-body">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name"  ng-model="guestName">
+                        <label for="email">Email-ID</label>
+                        <input type="email" id="email" name="email" ng-model="guestMail">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" ng-model="guestAddress">
+                        <label for="phone">Phone</label>
+                        <input type="text" id="phone" name="phone" ng-model="guestPhone"> 
+                        <button class="btn btn-danger" ng-click="orderConfirm()"> Place Order</button> 
+                        <p>{{msg}}</p>
+                    </div>-->
+                    </center>
+                </div>
+            </div>
+        
+        </div> 
+    </div>
+   
+</div>
